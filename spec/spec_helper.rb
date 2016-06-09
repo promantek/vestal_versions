@@ -3,6 +3,9 @@ Bundler.require
 require 'rspec/core'
 
 RSpec.configure do |c|
+  # Enable deprecated `should` expectation syntax alongside `expect`
+  c.expect_with(:rspec) { |c| c.syntax = [:should, :expect] }
+
   c.before(:suite) do
     CreateSchema.suppress_messages{ CreateSchema.migrate(:up) }
   end
