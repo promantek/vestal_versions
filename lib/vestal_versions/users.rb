@@ -19,15 +19,18 @@ module VestalVersions
       super.merge(:user => updated_by)
     end
 
-    # Instance methods added to VestalVersions::Version to accomodate incoming user information.
+    # Instance methods added to VestalVersions::Version to accommodate incoming user information.
     module VersionMethods
       extend ActiveSupport::Concern
 
       included do
         belongs_to :user, :polymorphic => true
 
-        alias_method_chain :user, :name
-        alias_method_chain :user=, :name
+        alias_method :user_without_name, :user
+        alias_method :user, :user_with_name
+
+        alias_method :user_without_name=, :user=
+        alias_method :user=, :user_with_name=
       end
 
       # Overrides the +user+ method created by the polymorphic +belongs_to+ user association. If

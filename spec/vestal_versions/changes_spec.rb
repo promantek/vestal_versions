@@ -3,7 +3,7 @@ require 'spec_helper'
 describe VestalVersions::Changes do
   context "a version's changes" do
     let(:user){ User.create(:name => 'Steve Richert') }
-    subject{ user.versions.last.changes }
+    subject{ user.versions.last.saved_changes }
 
     before do
       user.update_attribute(:last_name, 'Jobs')
@@ -31,7 +31,7 @@ describe VestalVersions::Changes do
       user.first_name = 'Stephen'
       model_changes = user.changes
       user.save
-      changes = user.versions.last.changes
+      changes = user.versions.last.saved_changes
 
       model_changes.should == changes
     end

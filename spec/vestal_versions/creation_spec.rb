@@ -52,7 +52,7 @@ describe VestalVersions::Creation do
 
     it 'does not contain Rails timestamps' do
       %w(created_at created_on updated_at updated_on).each do |timestamp|
-        subject.versions.last.changes.keys.should_not include(timestamp)
+        subject.versions.last.saved_changes.keys.should_not include(timestamp)
       end
     end
 
@@ -60,14 +60,14 @@ describe VestalVersions::Creation do
       User.prepare_versioned_options(:only => [:first_name])
       subject.update_attribute(:name, 'Steven Tyler')
 
-      subject.versions.last.changes.keys.should == ['first_name']
+      subject.versions.last.saved_changes.keys.should == ['first_name']
     end
 
     it 'allows specific columns to be excluded via :except' do
       User.prepare_versioned_options(:except => [:first_name])
       subject.update_attribute(:name, 'Steven Tyler')
 
-      subject.versions.last.changes.keys.should_not include('first_name')
+      subject.versions.last.saved_changes.keys.should_not include('first_name')
     end
 
     it "prefers :only to :except" do
@@ -75,7 +75,7 @@ describe VestalVersions::Creation do
         :except => [:first_name])
       subject.update_attribute(:name, 'Steven Tyler')
 
-      subject.versions.last.changes.keys.should == ['first_name']
+      subject.versions.last.saved_changes.keys.should == ['first_name']
     end
   end
 

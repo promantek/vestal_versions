@@ -95,12 +95,12 @@ module VestalVersions
     #
     #   user = User.find_by_first_name("Steve")
     #   user.version # => 2
-    #   user.versions.last.changes
+    #   user.versions.last.saved_changes
     #   # => {"first_name" => ["Stephen", "Steve"]}
     #   user.append_version do
     #     user.last_name = "Jobs"
     #   end
-    #   user.versions.last.changes
+    #   user.versions.last.saved_changes
     #   # => {"first_name" => ["Stephen", "Steve"], "last_name" => ["Richert", "Jobs"]}
     #   user.version # => 2
     #
