@@ -25,7 +25,7 @@ module VestalVersions
       backward ? chain.pop : chain.shift unless from_number == 1 || to_number == 1
 
       chain.inject({}) do |changes, version|
-        changes.append_changes!(backward ? version.changes.reverse_changes : version.changes)
+        changes.append_changes!(backward ? version.saved_changes.reverse_changes : version.saved_changes)
       end
     end
 
@@ -47,7 +47,7 @@ module VestalVersions
     # creation. Incremental changes are reset when the record is saved because they represent
     # a subset of the dirty attribute changes, which are reset upon save.
     def incremental_version_changes
-      changes.slice(*versioned_columns)
+      saved_changes.slice(*versioned_columns)
     end
 
     # Simply resets the cumulative changes after version creation.
