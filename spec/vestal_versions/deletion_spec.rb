@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe VestalVersions::Deletion do
+  before do
+    ActiveRecord.use_yaml_unsafe_load = true
+  end
+
   let(:name){ 'Steve Richert' }
   subject{ DeletedUser.create(:first_name => 'Steve', :last_name => 'Richert') }
 
@@ -60,7 +64,7 @@ describe VestalVersions::Deletion do
 
       it "restores even if the schema has changed" do
         new_mods = last_version.modifications.merge(:old_column => 'old')
-        last_version.update_attributes(:modifications => new_mods)
+        last_version.update(:modifications => new_mods)
 
         last_version.restore.should == subject
       end

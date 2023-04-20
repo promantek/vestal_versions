@@ -8,6 +8,10 @@ RSpec.configure do |c|
 
   c.before(:suite) do
     CreateSchema.suppress_messages{ CreateSchema.migrate(:up) }
+
+    # allow_any_instance_of(ActiveRecord).to receive(:config).and_return({
+    #   yaml_column_permitted_classes: [Time]
+    # })
   end
 
   c.after(:suite) do
