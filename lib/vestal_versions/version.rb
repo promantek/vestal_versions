@@ -14,7 +14,7 @@ module VestalVersions
     def saved_changes
       self[:modifications]
     end
-    serialize :modifications, Hash
+    serialize :modifications, type: Hash
 
     # In conjunction with the included Comparable module, allows comparison of version records
     # based on their corresponding version numbers, creation timestamps and IDs.
